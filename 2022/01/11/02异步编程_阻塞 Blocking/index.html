@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, hardStyle">
+    <meta name="keywords" content="hardStyle">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | hardStyle</title>
+    <title>hardStyle</title>
     <link rel="icon" type="image/jpeg" href="/logo.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -323,12 +323,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/banner/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-09
+                    2022-01-11
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-10
+                    2022-01-11
                 </div>
                 
 
@@ -485,19 +485,116 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <p>title: 异步编程2——阻塞（Blocking）<br>author: wyl<br>top: false<br>cover: false<br>toc: true<br>mathjax: false<br>summary: 基于埼玉杨老师的异步编程基础见解<br>tags:</p>
+<ul>
+<li>C#</li>
+<li>多线程<br>categories:</li>
+<li>C#<br>abbrlink: 19d2a4e7<br>reprintPolicy: cc_by<br>date: 2022-01-11 18:37:00<br>img: /medias/banner/csharp.png<br>password:</li>
+</ul>
+<h2 id="1-线程的状态-ThreadState"><a href="#1-线程的状态-ThreadState" class="headerlink" title="1. 线程的状态  ThreadState"></a>1. 线程的状态  ThreadState</h2><p><img src="https://images.cnblogs.com/cnblogs_com/viclgd/2299087609774085563.jpg"></p>
+<table>
+<thead>
+<tr>
+<th>Aborted</th>
+<th>256</th>
+<th>线程状态包括 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.threadstate?view=net-6.0#System_Threading_ThreadState_AbortRequested">AbortRequested</a> 并且该线程现在已死，但其状态尚未更改为 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.threadstate?view=net-6.0#System_Threading_ThreadState_Stopped">Stopped</a>。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AbortRequested</td>
+<td>128</td>
+<td>已对线程调用了 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.thread.abort?view=net-6.0#System_Threading_Thread_Abort_System_Object_">Abort(Object)</a> 方法，但线程尚未收到试图终止它的挂起的 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.threadabortexception?view=net-6.0">ThreadAbortException</a>。</td>
+</tr>
+<tr>
+<td>Background</td>
+<td>4</td>
+<td>线程正作为后台线程执行（相对于前台线程而言）。 此状态可以通过设置 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.thread.isbackground?view=net-6.0#System_Threading_Thread_IsBackground">IsBackground</a> 属性来控制。</td>
+</tr>
+<tr>
+<td>Running</td>
+<td>0</td>
+<td>线程已启动且尚未停止。</td>
+</tr>
+<tr>
+<td>Stopped</td>
+<td>16</td>
+<td>线程已停止。</td>
+</tr>
+<tr>
+<td>StopRequested</td>
+<td>1</td>
+<td>正在请求线程停止。 这仅用于内部。</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>64</td>
+<td>线程已挂起。</td>
+</tr>
+<tr>
+<td>SuspendRequested</td>
+<td>2</td>
+<td>正在请求线程挂起。</td>
+</tr>
+<tr>
+<td>Unstarted</td>
+<td>8</td>
+<td>尚未对线程调用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.thread.start?view=net-6.0#System_Threading_Thread_Start">Start()</a> 方法。</td>
+</tr>
+<tr>
+<td>WaitSleepJoin</td>
+<td>32</td>
+<td>线程已被阻止。 这可能是调用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.thread.sleep?view=net-6.0#System_Threading_Thread_Sleep_System_Int32_">Sleep(Int32)</a> 或 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.thread.join?view=net-6.0#System_Threading_Thread_Join">Join()</a>、请求锁定（例如通过调用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.monitor.enter?view=net-6.0#System_Threading_Monitor_Enter_System_Object_">Enter(Object)</a> 或 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.monitor.wait?view=net-6.0#System_Threading_Monitor_Wait_System_Object_System_Int32_System_Boolean_">Wait(Object, Int32, Boolean)</a>）或在线程同步对象上（例如 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.manualresetevent?view=net-6.0">ManualResetEvent</a>）等待的结果。</td>
+</tr>
+</tbody></table>
+<p>ThreadState属性用于诊断</p>
+<p>常用的状态 Unstated,Running,WaitSleepJoin和Stopped</p>
+<pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token comment">//抽离的状态</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token return-type class-name">ThreadState</span> SimpleThreadState <span class="token punctuation">(</span><span class="token class-name">ThreadState</span> ts<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> ts <span class="token operator">&amp;</span> <span class="token punctuation">(</span>ThreadState<span class="token punctuation">.</span>Stopped <span class="token operator">|</span> ThreadState<span class="token punctuation">.</span>Unstarted <span class="token operator">|</span>
+               ThreadState<span class="token punctuation">.</span>WaitSleepJoin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="2-阻塞"><a href="#2-阻塞" class="headerlink" title="2. 阻塞"></a>2. 阻塞</h2><p>如果线程由于某种原因导致暂定，那么就认为该线程被阻塞了（列如在<code>Sleep</code>或者通过<code>Join</code>等待其他线程结束）</p>
+<p>被阻塞的会将其处理器的时间片生成给其他线程，从此就不在消耗处理器时间，<code>直到满足器阻塞条件为止</code></p>
+<p><strong>通过ThreadState这个属性来判断线程是否处于被阻塞状态</strong></p>
+<pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token comment">//ThreadState可以合并数据选项</span>
+<span class="token class-name"><span class="token keyword">var</span></span> state <span class="token operator">=</span> ThreadState<span class="token punctuation">.</span>Unstarted <span class="token operator">|</span> ThreadState<span class="token punctuation">.</span>Stopped <span class="token operator">|</span> ThreadState<span class="token punctuation">.</span>WaitSleepJoin<span class="token punctuation">;</span>
+<span class="token comment">//通过&amp;操作来判断是否有该状态的位来判断是否有该状态</span>
+<span class="token class-name"><span class="token keyword">bool</span></span> blocked<span class="token operator">=</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span>ThreadState <span class="token operator">&amp;</span> ThreadState<span class="token punctuation">.</span>WaitSleepJoin<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-1解除阻塞"><a href="#2-1解除阻塞" class="headerlink" title="2.1解除阻塞"></a>2.1解除阻塞</h3><ol>
+<li><p>阻塞条件被满足</p>
+</li>
+<li><p>操作超时 (设置超时的条件下)</p>
+</li>
+<li><p>Thread.Interrupt() 进行打断</p>
+</li>
+<li><p>通过Thread.Abort() 进行终止</p>
+</li>
+</ol>
+<p><strong>当线程阻塞和解除阻塞时，操作系统将执<code>行上下文切换</code>。这会产生少量开销通常位1或2微秒</strong></p>
+<h2 id="3-I-O-Bound-vs-Compute-Bound（或CPU-Bound）"><a href="#3-I-O-Bound-vs-Compute-Bound（或CPU-Bound）" class="headerlink" title="3. I/O-Bound vs Compute-Bound（或CPU-Bound）"></a>3. I/O-Bound vs Compute-Bound（或CPU-Bound）</h2><p>一个花费大部分时间等待某事发生的操作成为 <code>I/O-Bound</code></p>
+<p>  I/O绑定操作通常涉及输入或输出，但是不是硬性要求，<code>Thread.Sleep()</code> 也被视为 <code>I/O-Bound</code></p>
+<p>相反，一个花费大部分时间执行CPU密集型工作的操作称为 <code>Compute-Bound</code></p>
+<h3 id="3-1-阻塞-Blocking-vs-忙等待-Spinning-自旋"><a href="#3-1-阻塞-Blocking-vs-忙等待-Spinning-自旋" class="headerlink" title="3.1 阻塞 Blocking vs 忙等待 Spinning (自旋)"></a>3.1 阻塞 Blocking vs 忙等待 Spinning (自旋)</h3><p>I/O-Bound 操作的工作方式有两种</p>
+<p> 在当前线程上同步的等待，同步等待的 <code>I/O-Bound</code>把大部分时间花在阻塞线程上</p>
+<p>​     如Console.WriteLine(),Thread.Sleep(),Thread.Join()…  </p>
+<p> 异步的操作，在稍后完成时触发一个回调动作。</p>
+<p>它们也可以周期性的在一个循环里进行 ”<code>打转(自旋)</code>“</p>
+<pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token comment">//忙等待(自旋) 例子</span>
+<span class="token function">While</span><span class="token punctuation">(</span>DataTime<span class="token punctuation">.</span>Now <span class="token operator">&lt;</span> nextStartTime<span class="token punctuation">)</span> <span class="token comment">//一会用一下Cpu</span>
+	Thread<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//一会又在等着</span>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<span class="token function">While</span><span class="token punctuation">(</span>DataTime<span class="token punctuation">.</span>Now <span class="token operator">&lt;</span> nextStartTime<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//Cpu一直在工作</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>在自旋和阻塞方面有一些细微差别</p>
+<p>​    首先，您希望条件很快得到满足条件，则短暂的自旋可能会很有效，因为它避免了上下文切换的开销和延迟</p>
+<p>​        .NET Framework提供了特殊的方法和类 <code>SpinLock</code> 和 <code>SpinWait</code></p>
+<p>​    其次，阻塞不是零成本，因为每个线程在生存期间会占用大约1MB的内存，并会给CLR和操作系统带来持续的管理开销</p>
+<p>​        因此，在需要处理成百上千个并发操作的大量I/O-Bound程序的上下文中，阻塞可能会很麻烦</p>
+<pre><code>    所以，此类程序需要使用基于回调的方法，在等待时完全撤销其线程
+</code></pre>
 
                 
             </div>
@@ -524,7 +621,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/hardstyleWyl/2022/01/09/hello-world/">https://github.com/hardstyleWyl/2022/01/09/hello-world/</a>
+                    <a href="https://github.com/hardstyleWyl/2022/01/11/02%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B_%E9%98%BB%E5%A1%9E%20Blocking/">https://github.com/hardstyleWyl/2022/01/11/02%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B_%E9%98%BB%E5%A1%9E%20Blocking/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -603,9 +700,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/01/11/02%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B_%E9%98%BB%E5%A1%9E%20Blocking/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Wyl
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/01/10/01%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B_Join%E5%92%8CSleep/">
                     <div class="card-image">
@@ -622,9 +758,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -646,62 +782,6 @@
                     
                     <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
                         <span class="chip bg-color">多线程</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/01/03/blog-aliyun/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/banner/5.jpg" class="responsive-img" alt="阿里云服务器部署Hexo博客">
-                        
-                        <span class="card-title">阿里云服务器部署Hexo博客</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            相信大部分人使用Hexo搭建个人博客都会部署到一些免费的代码托管平台上，但这些免费的平台总是差强人意，今天记录下如何在自己的云服务器上搭建Hexo博客。
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-03
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%AF%87/" class="post-category">
-                                    博客篇
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Hexo/">
-                        <span class="chip bg-color">Hexo</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/">
-                        <span class="chip bg-color">阿里云</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                        <span class="chip bg-color">博客</span>
                     </a>
                     
                 </div>
