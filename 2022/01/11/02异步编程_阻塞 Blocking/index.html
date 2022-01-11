@@ -502,7 +502,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-线程的状态-ThreadState"><a href="#1-线程的状态-ThreadState" class="headerlink" title="1. 线程的状态  ThreadState"></a>1. 线程的状态  ThreadState</h2><p><img src="https://images.cnblogs.com/cnblogs_com/viclgd/2299087609774085563.jpg"></p>
+                <h2 id="1-线程的状态-ThreadState"><a href="#1-线程的状态-ThreadState" class="headerlink" title="1. 线程的状态  ThreadState"></a>1. 线程的状态  ThreadState</h2><p><img src="https://s3.bmp.ovh/imgs/2022/01/a6b703f070267f4a.jpg"></p>
 <table>
 <thead>
 <tr>
@@ -584,7 +584,7 @@
 <li><p>通过Thread.Abort() 进行终止</p>
 </li>
 </ol>
-<p><strong>当线程阻塞和解除阻塞时，操作系统将执<code>行上下文切换</code>。这会产生少量开销通常位1或2微秒</strong></p>
+<p><strong>当线程阻塞和解除阻塞时，操作系统将执行<code>上下文切换</code>。这会产生少量开销通常位1或2微秒</strong></p>
 <h2 id="3-I-O-Bound-vs-Compute-Bound（或CPU-Bound）"><a href="#3-I-O-Bound-vs-Compute-Bound（或CPU-Bound）" class="headerlink" title="3. I/O-Bound vs Compute-Bound（或CPU-Bound）"></a>3. I/O-Bound vs Compute-Bound（或CPU-Bound）</h2><p>一个花费大部分时间等待某事发生的操作成为 <code>I/O-Bound</code></p>
 <p>  I/O绑定操作通常涉及输入或输出，但是不是硬性要求，<code>Thread.Sleep()</code> 也被视为 <code>I/O-Bound</code></p>
 <p>相反，一个花费大部分时间执行CPU密集型工作的操作称为 <code>Compute-Bound</code></p>
@@ -603,9 +603,7 @@
 <p>​    首先，您希望条件很快得到满足条件，则短暂的自旋可能会很有效，因为它避免了上下文切换的开销和延迟</p>
 <p>​        .NET Framework提供了特殊的方法和类 <code>SpinLock</code> 和 <code>SpinWait</code></p>
 <p>​    其次，阻塞不是零成本，因为每个线程在生存期间会占用大约1MB的内存，并会给CLR和操作系统带来持续的管理开销</p>
-<p>​        因此，在需要处理成百上千个并发操作的大量I/O-Bound程序的上下文中，阻塞可能会很麻烦</p>
-<pre><code>    所以，此类程序需要使用基于回调的方法，在等待时完全撤销其线程
-</code></pre>
+<p>​        因此，在需要处理成百上千个并发操作的大量I/O-Bound程序的上下文中，阻塞可能会很麻烦;<br>            所以，此类程序需要使用基于回调的方法，在等待时完全撤销其线程</p>
 
                 
             </div>
